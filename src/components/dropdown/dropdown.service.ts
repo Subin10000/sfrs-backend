@@ -8,14 +8,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class DropdownService {
   constructor(
-    @InjectRepository(Dropdown) private readonly userRepository: Repository<Dropdown>,
+    @InjectRepository(Dropdown) private readonly dropdownRepository: Repository<Dropdown>,
   ){}
   create(createDropdownDto: CreateDropdownDto) {
-    return this.userRepository.save(createDropdownDto)
+    return this.dropdownRepository.save(createDropdownDto)
   }
 
   findAll() {
-    return `This action returns all dropdown`;
+    return this.dropdownRepository.find();
   }
 
   findOne(id: number) {

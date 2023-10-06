@@ -8,18 +8,34 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class StudentsService {
   constructor(
-    @InjectRepository(Student) private readonly userRepository: Repository<Student>,
+    @InjectRepository(Student) private readonly studentRepository: Repository<Student>,
   ){}
   create(createStudentDto: CreateStudentDto) {
-    return this.userRepository.save(createStudentDto)
+    return this.studentRepository.save(createStudentDto)
   }
 
   upload(uploadStudentImage: Express.Multer.File) {
-    return 'This action adds a new student';
+    return 'This action uploads a new student';
   }
 
-  findAll() {
-    return this.userRepository.find();
+  findAllByFilters(classId?: string, facultyId?: string, search?: string): Promise<Student[]> {
+    let query = this.studentRepository.createQueryBuilder('student');
+
+    if (classId) {
+      query = query.where('student.classId = :classId', { classId });
+    }
+
+    if (facultyId) {
+      query = query.andWhere('student.facultyId = :facultyId', { facultyId });
+    }
+
+    if (search) {
+      query = query.andWhere('(student.name LIKE :search OR student.rollNumber LIKE :search)', {
+        search: `%${search}%`,
+      });
+    }
+
+    return query.getMany();
   }
 
   findOne(id: number) {

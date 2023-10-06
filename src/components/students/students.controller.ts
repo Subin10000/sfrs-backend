@@ -55,7 +55,7 @@ export class StudentsController {
 
   @Get()
   findAll() {
-    return this.studentsService.findAll();
+    return this.studentsService.findAllByFilters();
   }
 
   @Get(':id')
