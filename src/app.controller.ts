@@ -12,7 +12,10 @@ export class AppController {
 
   @Get('mail')
   sendMail(): void {
-    return this.appService.sendMail();
+    const to = "";
+    const subject = "";
+    const text = "";
+    return this.appService.sendMail(to,subject,text);
   }
 
 }

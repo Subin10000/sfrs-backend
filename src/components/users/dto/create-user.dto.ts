@@ -7,10 +7,6 @@ enum UserRole {
 }
 
 export class CreateUserDto {
-  @PrimaryGeneratedColumn()
-  @IsNumber()
-  id: number;
-
   @Column()
   @IsString()
   @IsNotEmpty()

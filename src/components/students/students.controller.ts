@@ -24,7 +24,7 @@ export class StudentsController {
       filename: (req,file,cb)=> {
         const name = file.originalname.split('.')[0];
         const fileExtension = file.originalname.split('.')[1];
-        const newFileName = name.split(' ').join('-')+"-"+Date.now()+"." + fileExtension;
+        const newFileName = name.split(' ')+"." + fileExtension;
         
         cb(null,newFileName);
       }

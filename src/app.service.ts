@@ -10,13 +10,13 @@ export class AppService {
     return 'Hello World!';
   }
 
-  sendMail(): void {
+  sendMail(to,subject,text): void {
     this.mailerService.sendMail({
-      to: 'kerby.nabin57@gmail.com',
+      to: to,
       from: 'sabin.sunar@wolfmatrix.com',
-      subject: 'Testing a mail being send',
-      text: 'Welcome',
-      html: '<b>Welcome</b>',
+      subject: subject,
+      text: text,
+      html: `<b>${text}</b>`,
     })
   }
 }

@@ -1,22 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Teacher } from './entities/teacher.entity';
 import { Repository } from 'typeorm';
+import { AppService } from 'src/app.service';
 
 @Injectable()
 export class TeacherService {
   constructor(
     @InjectRepository(Teacher) private readonly teacherRepository: Repository<Teacher>,
-    
   ){}
-  create(createTeacherDto: CreateTeacherDto) {
-    return createTeacherDto;
+  create(createTeacherDto: any) {
+    return this.teacherRepository.save(createTeacherDto);
   }
 
   findAll() {
-    return `This action returns all teacher`;
+    return this.teacherRepository.find();
   }
 
   findOne(id: number) {
@@ -24,7 +24,7 @@ export class TeacherService {
   }
 
   update(id: number, updateTeacherDto: UpdateTeacherDto) {
-    return `This action updates a #${id} teacher`;
+    return this.teacherRepository.save(updateTeacherDto);
   }
 
   remove(id: number) {
