@@ -1,4 +1,4 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,8 +19,17 @@ export class TeacherService {
     return this.teacherRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} teacher`;
+  async findOne(id: number): Promise<Teacher> {
+    const teacher = await this.teacherRepository.findOne({
+      where: { user: { id: id }},
+    });
+
+    if (!teacher) {
+      // Throw an exception or handle the case where teacher is not found
+      throw new NotFoundException(`Teacher with userId ${id} not found`);
+    }
+
+    return teacher;
   }
 
   update(id: number, updateTeacherDto: UpdateTeacherDto) {

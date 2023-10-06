@@ -13,17 +13,16 @@ export class AttendanceController {
     return this.attendanceService.create(createAttendanceDto);
   }
 
-  @UseGuards(AuthGuard)
-  @Get('getAll')
-  findAll() {
-    return this.attendanceService.findAll();
+  @Get(':dateRange')
+  findAllByDateRange(@Param('dateRange') dateRange: string) {
+    return this.attendanceService.findAll(dateRange);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.attendanceService.findOne(+id);
   }
-
+  
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAttendanceDto: UpdateAttendanceDto) {
     return this.attendanceService.update(+id, updateAttendanceDto);

@@ -19,7 +19,7 @@ export class Student {
   phone: string;
 
   @Column()
-  role: string;
+  roll: string;
 
   @Column()
   image: string;

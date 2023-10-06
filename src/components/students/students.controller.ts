@@ -11,7 +11,7 @@ import { AuthGuard } from '../users/auth/auth.guard';
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Post('create')
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentsService.create(createStudentDto);
