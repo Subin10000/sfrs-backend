@@ -10,13 +10,16 @@ export class AppService {
     return 'Hello World!';
   }
 
-  sendMail(to,subject,text): void {
-    this.mailerService.sendMail({
+  sendMail(to:string,subject:string,text: string): any {
+    const emailSent =  this.mailerService.sendMail({
       to: to,
       from: 'sabin.sunar@wolfmatrix.com',
       subject: subject,
       text: text,
       html: `<b>${text}</b>`,
     })
+    if(emailSent){
+      return {message: 'success'}
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('api')
@@ -10,12 +10,16 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('mail')
-  sendMail(): void {
-    const to = "";
-    const subject = "";
-    const text = "";
-    return this.appService.sendMail(to,subject,text);
-  }
+  @Post('email')
+  sendMail(@Body() body : any)  {
+    const { to, subject, text } = body;
 
+    console.log(to, subject, text);
+
+    const receiver = to || '';
+    const emailSubject = subject || '';
+    const emailBody = text || '';
+
+    return this.appService.sendMail(receiver, emailSubject, emailBody);
+  }
 }
