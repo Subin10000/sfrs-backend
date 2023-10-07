@@ -13,7 +13,7 @@ export class Student {
   lastname: string;
 
   @Column()
-  mail: string;
+  email: string;
 
   @Column()
   phone: string;

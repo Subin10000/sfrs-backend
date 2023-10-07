@@ -12,7 +12,7 @@ export class CreateStudentDto {
 
   @IsNotEmpty()
   @IsEmail()
-  mail: string;
+  email: string;
 
   @IsNotEmpty()
   @IsString()
@@ -20,7 +20,7 @@ export class CreateStudentDto {
 
   @IsNotEmpty()
   @IsString()
-  role: string;
+  roll: string;
 
   @IsNotEmpty()
   @IsString()
