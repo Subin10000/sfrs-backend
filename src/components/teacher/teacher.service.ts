@@ -23,7 +23,6 @@ export class TeacherService {
     const teacher = await this.teacherRepository.findOne({
       where: { user: { id: id }},
     });
-
     if (!teacher) {
       // Throw an exception or handle the case where teacher is not found
       throw new NotFoundException(`Teacher with userId ${id} not found`);

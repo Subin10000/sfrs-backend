@@ -14,7 +14,6 @@ export class AppController {
   sendMail(@Body() body : any)  {
     const { to, subject, text } = body;
 
-    console.log(to, subject, text);
 
     const receiver = to || '';
     const emailSubject = subject || '';
