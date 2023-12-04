@@ -22,7 +22,7 @@ export class AttendanceService {
     return `This action creates an attendance`;
   }
 
-  async findAll(dateRange: string): Promise<Attendance[]> {
+  async findAll(companyId: number, dateRange: string): Promise<Attendance[]> {
     const today = new Date();
     let startDate, endDate;
 
@@ -60,15 +60,18 @@ export class AttendanceService {
     }
 
     const attendances = await this.attendanceRepository
-      .createQueryBuilder('attendance')
-      .leftJoinAndSelect('attendance.student', 'student')
-      .where('attendance.entryTime BETWEEN :startDate AND :endDate', {
+    .createQueryBuilder('attendance')
+    .leftJoinAndSelect('attendance.employee', 'employee')
+    .leftJoinAndSelect('attendance.company', 'company')
+    .where('attendance.entryTime BETWEEN :startDate AND :endDate', {
         startDate: startDate,
         endDate: endDate,
-      })
-      .getMany();
+    })
+    .andWhere('employee.companyId = :companyId', { companyId: companyId })
+    .getMany();
 
-    return attendances;
+return attendances;
+
   }
 
   findOne(id: number) {

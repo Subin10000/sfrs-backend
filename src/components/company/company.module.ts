@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { TeacherService } from './teacher.service';
-import { TeacherController } from './teacher.controller';
+import { CompanyService } from './company.service';
+import { CompanyController } from './company.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Teacher } from './entities/teacher.entity';
+import { Company } from './entities/company.entity';
 import { UsersService } from '../users/users.service';
 import { UsersModule } from '../users/users.module';
 import { User } from '../users/entities/user.entity';
@@ -11,9 +11,9 @@ import { AppService } from 'src/app.service';
 @Module({
   imports: [
     UsersModule,
-    TypeOrmModule.forFeature([Teacher,User]),
+    TypeOrmModule.forFeature([Company,User]),
   ],
-  controllers: [TeacherController],
-  providers: [TeacherService,UsersService,AppService],
+  controllers: [CompanyController],
+  providers: [CompanyService,UsersService,AppService],
 })
-export class TeacherModule {}
+export class CompanyModule {}

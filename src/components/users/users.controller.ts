@@ -33,7 +33,6 @@ export class UsersController {
     @Res({passthrough:true}) response: Response
   ){
     const user = await this.usersService.findOne(createUserDto.email);
-    
     if(!user){
       throw new BadRequestException('Invalid Credentials');
     }
@@ -41,7 +40,7 @@ export class UsersController {
     if(!await bcrypt.compare(createUserDto.password, user.password)){
       throw new BadRequestException('Invalid Credentials');
     }
-
+    
     const jwt = await this.jwtService.signAsync({id:user.id, role:user.role})
 
     response.cookie('jwt ',jwt,{httpOnly:true})

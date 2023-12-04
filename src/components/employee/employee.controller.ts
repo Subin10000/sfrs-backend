@@ -1,20 +1,20 @@
+
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, BadRequestException, UploadedFile, Res, UseGuards } from '@nestjs/common';
-import { StudentsService } from './students.service';
-import { CreateStudentDto } from './dto/create-student.dto';
-import { UpdateStudentDto } from './dto/update-student.dto';
+import { EmployeesService } from './employee.service';
+import { CreateEmployeeDTO } from './dto/create-employee.dto';
+import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { Express, Request, Response } from 'express';
-import { AuthGuard } from '../users/auth/auth.guard';
 
-@Controller('students')
-export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+@Controller('employees')
+export class EmployeesController {
+  constructor(private readonly employeesService: EmployeesService) {}
 
   // @UseGuards(AuthGuard)
   @Post('create')
-  create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentsService.create(createStudentDto);
+  create(@Body() createEmployeeDto: CreateEmployeeDTO) {
+    return this.employeesService.create(createEmployeeDto);
   }
 
   @Post('upload')
@@ -36,12 +36,12 @@ export class StudentsController {
       cb(null,true);
     } 
   }))
-  Upload(@UploadedFile() uploadStudentImage: Express.Multer.File) {
-    if(!uploadStudentImage){
-      throw new BadRequestException('File is not  an image.');
+  Upload(@UploadedFile() uploadEmployeeImage: Express.Multer.File) { 
+    if(!uploadEmployeeImage){
+      throw new BadRequestException('File is not an image.');
     } else {
       const response = {
-        filePath: `http://localhost:8000/students/image/${uploadStudentImage.filename}`
+        filePath: `http://localhost:8000/employees/image/${uploadEmployeeImage.filename}`
       };
       return response;
     }
@@ -52,23 +52,18 @@ export class StudentsController {
     res.sendFile(filename,{root:'./resource'});
   }
 
-  @Get()
-  findAll() {
-    return this.studentsService.findAllByFilters();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.studentsService.findOne(+id);
+  @Get(':companyId')
+  findAllByCompany(@Param('companyId') companyId: number) {
+    return this.employeesService.findAllByFilters(companyId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentsService.update(+id, updateStudentDto);
+  update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+    return this.employeesService.update(+id, updateEmployeeDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.studentsService.remove(+id);
+    return this.employeesService.remove(+id);
   }
 }

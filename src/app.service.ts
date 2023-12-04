@@ -10,16 +10,20 @@ export class AppService {
     return 'Hello World!';
   }
 
-  sendMail(to:string,subject:string,text: string): any {
-    const emailSent =  this.mailerService.sendMail({
-      to: to,
-      from: 'sabin.sunar@wolfmatrix.com',
-      subject: subject,
-      text: text,
-      html: `<b>${text}</b>`,
-    })
-    if(emailSent){
-      return {message: 'success'}
+  async sendMail(to: string, subject: string, text: string): Promise<any> {
+    try {
+      const emailSent = await this.mailerService.sendMail({
+        to: to,
+        from: 'sabin.sunar@wolfmatrix.com',
+        subject: subject,
+        text: text,
+        html: `<b>${text}</b>`,
+      });
+
+      return { message: 'success', recipient: to };
+    } catch (error) {
+      console.error('Error sending email:', error);
+      return { message: 'error', recipient: to };
     }
   }
 }

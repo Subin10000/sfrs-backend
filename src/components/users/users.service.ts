@@ -26,8 +26,7 @@ export class UsersService {
   async sendPasswordResetEmail(email: string){
     try {
       const user = await this.userRepository.findOne({where: {email : email}});
-      console.log(user);
-      if (user) {
+       if (user) {
         const resetToken = this.generateResetToken();
 
         user.resetToken = resetToken;

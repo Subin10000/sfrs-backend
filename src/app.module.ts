@@ -4,13 +4,13 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './components/users/entities/user.entity';
 import { UsersModule } from './components/users/users.module';
-import { StudentsModule } from './components/students/students.module';
-import { Student } from './components/students/entities/student.entity';
+import { EmployeeModule } from './components/employee/employee.module';
+import { Employee } from './components/employee/entities/employee.entity';
 import { UtilsModule } from './components/utils/utils.module';
 import { Dropdown } from './components/dropdown/entities/dropdown.entity';
 import { DropdownModule } from './components/dropdown/dropdown.module';
-import { TeacherModule } from './components/teacher/teacher.module';
-import { Teacher } from './components/teacher/entities/teacher.entity';
+import { CompanyModule } from './components/company/company.module';
+import { Company } from './components/company/entities/company.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Attendance } from './components/attendance/entities/attendance.entity';
 import { AttendanceModule } from './components/attendance/attendance.module';
@@ -33,14 +33,14 @@ import { AttendanceModule } from './components/attendance/attendance.module';
       username: 'root',
       password: 'root',
       database: 'sfrs',
-      entities: [User,Student,Dropdown,Teacher,Attendance],
+      entities: [User,Employee,Dropdown,Company,Attendance],
       synchronize: true,
     }),
     UsersModule,
-    StudentsModule,
+    EmployeeModule,
     UtilsModule,
     DropdownModule,
-    TeacherModule,
+    CompanyModule,
     AttendanceModule
   ],
   controllers: [AppController],

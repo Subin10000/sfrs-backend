@@ -13,9 +13,12 @@ export class AttendanceController {
     return this.attendanceService.create(createAttendanceDto);
   }
 
-  @Get(':dateRange')
-  findAllByDateRange(@Param('dateRange') dateRange: string) {
-    return this.attendanceService.findAll(dateRange);
+  @Get(':companyId/:dateRange')
+  findAllByCompanyAndDateRange(
+    @Param('companyId') companyId: number,
+    @Param('dateRange') dateRange: string,
+  ) {
+    return this.attendanceService.findAll(companyId, dateRange);
   }
 
   @Get(':id')
