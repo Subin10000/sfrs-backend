@@ -15,8 +15,11 @@ export class Attendance {
     @JoinColumn({ name: 'company_id' }) 
     company: Company;
 
-    @Column()
+    @Column({ nullable: true }) 
     entryTime: Date;
+
+    @Column({ nullable: true })  
+    exitTime: Date;
 
     @Column()
     status: boolean;
